@@ -70,7 +70,22 @@ public class Arreglos<E> {
     public void limpiar () {
     	array_to_manipulate.finalize();/// por alguna razon no me deja usar el metodo de la clase padre Object
     }
-    public E primero () {
-    	
+    public E primero () throws IndiceFueraDeRango{
+    	if (array_to_manipulate[0]!=null) {
+    		@SuppressWarnings("unchecked")/// esta linea se pone por elcipse
+    		final E data_from_position=(E)array_to_manipulate[0];
+    		return data_from_position;
+    	}else {
+    		throw new IndiceFueraDeRango("La posicion introducida dentro de la lista no es valida.");
+    	}
+    }
+    public void imprime() {
+    	for (int i=0; i<array_to_manipulate.length;i++) {
+    		System.out.println(array_to_manipulate[i]);
+    	}
+    }
+    public void asignar (int position_array, E data_to_assign) {
+    	//en este metodo tengo mis dudas, porque puede existir la posiblilidad de que el leguaje trate de meter un generic 
+    	// que no coincida don el generic del arreglo
     }
 }
