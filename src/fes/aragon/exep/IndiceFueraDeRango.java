@@ -1,4 +1,4 @@
-package fes.aragom.exep;
+package fes.aragon.exep;
 import java.lang.IndexOutOfBoundsException;
 
 public class IndiceFueraDeRango {
