@@ -1,5 +1,5 @@
 package Herramintas;
-package fes.aragom.exep;
+package fes.aragon.exep;
 import java.lang.IndexOutOfBoundsException;
 
 
