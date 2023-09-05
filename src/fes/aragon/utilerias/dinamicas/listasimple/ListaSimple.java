@@ -9,7 +9,7 @@ public class ListaSimple<E> {
 		header=cola=null;
 	}
 	
-	public void agraegarEnCabeza(E inputData) {
+	public void agregarEnCabeza(E inputData) {
 		header = new Nodo<E>(inputData, header);
 		if (cola == null) {
 			cola= header;
@@ -26,7 +26,7 @@ public class ListaSimple<E> {
 		longitud++;
 	}
 	public void imprimirElemetos() {
-		for (Nodo<E> temporal = header; temporal !=null; temporal.getNext()) {
+		for (Nodo<E> temporal = header; temporal !=null; temporal=temporal.getNext()) {
 			System.out.println(temporal.getData());
 		}
 	}
@@ -35,6 +35,9 @@ public class ListaSimple<E> {
 	}
 	public E obtenerCola() {
 		return cola.getData();
+	}
+	public int getLongitud() {
+		return longitud;
 	}
 	
 }
