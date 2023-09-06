@@ -39,5 +39,16 @@ public class ListaSimple<E> {
 	public int getLongitud() {
 		return longitud;
 	}
-	
+	public boolean eliminar (E inputData) {
+		boolean borrado= false;
+		if (header != null) {
+			if (header==cola&& inputData.equals(header.getData())) {
+				header=cola=null;
+				borrado=true;
+				longitud--;
+			}else if (inputData.equals(header.getData())) {
+				
+			}
+		}
+	} 
 }
