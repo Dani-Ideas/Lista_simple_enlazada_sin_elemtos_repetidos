@@ -11,7 +11,7 @@ public class ListaSimple<E> {
 	
 	public void agregarEnCabeza(E inputData) {
 		header = new Nodo<E>(inputData, header);
-		if (cola == null) {
+		if (cola==null) {
 			cola= header;
 		}
 		longitud++;
@@ -39,7 +39,8 @@ public class ListaSimple<E> {
 	public int getLongitud() {
 		return longitud;
 	}
-	public boolean eliminar (E inputData) {
+	/*
+	 * public boolean eliminar (E inputData) {
 		boolean borrado= false;
 		if (header != null) {
 			if (header==cola&& inputData.equals(header.getData())) {
@@ -51,4 +52,26 @@ public class ListaSimple<E> {
 			}
 		}
 	} 
+	 * */
+	
+	/**
+	 * Este metodo elimina loe elemetos de nuetra lista en dos posibles casos:
+	 * 1- cuando la lista tiene mas de un elemento
+	 * 2- cuando la lista tiene mas de un elemento
+	 * */
+	public void eliminarEnCabeza() {
+		if (header !=null) {
+			if (header.equals(cola)) {
+				//cuando la lista tiene mas de un elemento
+				header=cola=null;
+				longitud--;
+			}else {
+				//cuando la lista tiene mas de un elemento
+				header= header.getNext();
+				longitud--;
+			}
+		}
+	}
+	public void eliminarEnCola () {
+	}
 }
