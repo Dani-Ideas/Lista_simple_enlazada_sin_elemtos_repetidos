@@ -1,8 +1,10 @@
 package Herramintas;
+
 import java.util.Random;
+
 import fes.aragon.utilerias.dinamicas.listasimple.ListaSimple;
 
-public class Herramietas {
+public class Herramientas {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -18,5 +20,4 @@ public class Herramietas {
 		System.out.println("--------------------------");
 		lista2.imprimirElemetos();
 	}
-
 }
