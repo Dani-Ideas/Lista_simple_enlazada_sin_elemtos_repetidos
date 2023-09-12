@@ -1,7 +1,7 @@
 package fes.aragon.utilerias.dinamicas.listasimple;
 
 public class ListaSimpleSinRepetir<E> extends ListaSimple<E>{
-	protected Nodo<E> temporal; 
+	
 	public void agregarEnCabeza(E inputData,ListaSimpleSinRepetir<E> listErrace) {
 		boolean es_Duplicado= super.eliminar(inputData); 
 		if (!es_Duplicado) 
