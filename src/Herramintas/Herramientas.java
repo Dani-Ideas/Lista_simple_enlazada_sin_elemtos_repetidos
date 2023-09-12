@@ -1,4 +1,5 @@
 package Herramintas;
+
 import java.util.Random;
 
 import fes.aragon.utilerias.dinamicas.listasimple.ListaSimpleSinRepetir;
@@ -11,7 +12,7 @@ public class Herramientas {
 		//ListaSimpleSinRepetir<Integer> lista2=new ListaSimpleSinRepetir<Integer>();
 		Random numeberRandomGenerate= new Random();
 		
-		for (int i=0; i<100; i++) {
+		for (int i=0; i<10; i++) {
 			int numberRandom= numeberRandomGenerate.nextInt(50,121);
 			//lista2.agregarEnCabeza(numberRandom);
 			lista1.agregarEnCola(numberRandom);
