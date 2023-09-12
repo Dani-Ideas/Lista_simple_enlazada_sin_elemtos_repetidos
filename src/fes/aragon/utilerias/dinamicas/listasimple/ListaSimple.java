@@ -42,34 +42,37 @@ public class ListaSimple<E> {
 		return longitud;
 	}
 	
-	public boolean eliminar (E inputData) {
-		boolean borrado= false;
-		if (header != null) {
-			if (header==cola&& inputData.equals(header.getData())) {
-				header=cola=null;
-				borrado=true;
-				longitud--;
-			}else if (inputData.equals(header.getData())) {
-				//header.setData((E)header.getNext());
-				header=header.getNext();
-				borrado=true;
-				longitud--;
-			}else {
-				Nodo <E> temporal, predecesor;
-				for(predecesor=header,temporal=header.getNext();temporal!=null && !temporal.getData().equals(inputData);predecesor.getNext(),temporal.getNext()) {
-					if (temporal!= null) {
-						borrado= true;
-						longitud--;
-						predecesor.setNext(temporal.getNext());
-						if (temporal.equals(cola)) {
-							cola=predecesor;
-						}
-					}	
-				}
-			}
-		}
-		return borrado;
-	} 
+	public boolean eliminar(E inputData) {
+	    boolean borrado = false;
+	    if (header != null) {
+	        if (header == cola && inputData.equals(header.getData())) {
+	            header = cola = null;
+	            borrado = true;
+	            longitud--;
+	        } else if (inputData.equals(header.getData())) {
+	            header = header.getNext();
+	            borrado = true;
+	            longitud--;
+	        } else {
+	            Nodo<E> temporal, predecesor;
+	            predecesor = header;
+	            temporal = header.getNext();
+	            while (temporal != null && !temporal.getData().equals(inputData)) {
+	                predecesor = temporal;
+	                temporal = temporal.getNext();
+	            }
+	            if (temporal != null) {
+	                borrado = true;
+	                longitud--;
+	                predecesor.setNext(temporal.getNext());
+	                if (temporal.equals(cola)) {
+	                    cola = predecesor;
+	                }
+	            }
+	        }
+	    }
+	    return borrado;
+	}
 	/**
 	 * Este metodo elimina los elemetos de nuetra lista en dos posibles casos:
 	 * 1- cuando la lista tiene mas de un elemento
