@@ -1,23 +1,26 @@
 package Herramintas;
-
 import java.util.Random;
 
-import fes.aragon.utilerias.dinamicas.listasimple.ListaSimple;
+import fes.aragon.utilerias.dinamicas.listasimple.ListaSimpleSinRepetir;
 
 public class Herramientas {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ListaSimple<Integer> lista1=new ListaSimple<>();
-		ListaSimple<Integer> lista2=new ListaSimple<>();
+		ListaSimpleSinRepetir<Integer> lista1=new ListaSimpleSinRepetir<Integer>();
+		//ListaSimpleSinRepetir<Integer> lista2=new ListaSimpleSinRepetir<Integer>();
 		Random numeberRandomGenerate= new Random();
+		
 		for (int i=0; i<100; i++) {
 			int numberRandom= numeberRandomGenerate.nextInt(50,121);
-			lista2.agregarEnCabeza(numberRandom);
+			//lista2.agregarEnCabeza(numberRandom);
 			lista1.agregarEnCola(numberRandom);
 		}
+		
 		lista1.imprimirElemetos();
 		System.out.println("--------------------------");
-		lista2.imprimirElemetos();
+		lista1.agregarEnCola(152);
+		lista1.agregarEnCola(152);
+		lista1.imprimirElemetos();
 	}
 }

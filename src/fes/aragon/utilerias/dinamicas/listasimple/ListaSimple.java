@@ -149,4 +149,5 @@ public class ListaSimple<E> {
 	        throw new NoSuchElementException("La lista está vacía. No se puede eliminar ningún valor.");
 	    }
 	}
+	
 }
