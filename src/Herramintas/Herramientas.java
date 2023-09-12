@@ -21,7 +21,11 @@ public class Herramientas {
 		
 		lista1.imprimirElemetos();
 		System.out.println("--------------------------");
-		System.out.println("Lista despues de agregar dos numeros repetidos que son 152");
+		System.out.println("Lista despues de agregar 6 numeros repetidos que son 152");
+		lista1.agregarEnCabeza(152);
+		lista1.agregarEnCabeza(152);
+		lista1.agregarEnCabeza(152);
+		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.imprimirElemetos();
