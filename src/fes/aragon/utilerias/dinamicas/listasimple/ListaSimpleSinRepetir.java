@@ -6,14 +6,24 @@ public class ListaSimpleSinRepetir<E> extends ListaSimple<E>{
 		boolean es_Duplicado= super.eliminar(inputData); 
 		if (!es_Duplicado) 
 			super.agregarEnCabeza(inputData);
-		else 
-			listErrace.agregarEnCola(inputData);
+		else {
+			listErrace.agregarEnCabeza(inputData);
+			super.agregarEnCabeza(inputData);
+			}
+	}
+	public void agregarEnCabeza(E inputData) {
+		super.agregarEnCabeza(inputData);
 	}
 	public void agregarEnCola(E inputData,ListaSimpleSinRepetir<E> listErrace) {
 		boolean es_Duplicado= super.eliminar(inputData); 
 		if (!es_Duplicado)
 			super.agregarEnCola(inputData);
-		else 
+		else {
 			listErrace.agregarEnCola(inputData);
+			super.agregarEnCola(inputData);
+			}
+	}
+	public void agregarEnCola(E inputData) {
+		super.agregarEnCola(inputData);
 	}
 }
