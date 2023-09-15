@@ -1,28 +1,47 @@
 package fes.aragon.utilerias.dinamicas.listasimple;
 
 public class Nodo<E> {
-	private E data;
-	private Nodo<E> next;
-	public Nodo(E intput_data) {
-		this(intput_data,null);////SPk01
+	private E dato;
+	private Nodo<E> siguiente;
+	private Nodo<E> anterior;
+	public Nodo(E dato) {
+		this(dato, null);
 	}
-	public Nodo (E intput_data,Nodo<E> input_next) {
-		this.data=intput_data;
-		this.next= input_next;
+	
+	public Nodo(E dato, Nodo<E> siguiente) {
+		this.dato = dato;
+		this.siguiente = siguiente;
 	}
-	public E getData() {
-        return data;
-    }
+	
+	public Nodo(E dato, Nodo<E> siguiente, Nodo<E> anterior) {
+		super();
+		this.dato = dato;
+		this.siguiente = siguiente;
+		this.anterior = anterior;
+	}
 
-    public void setData(E data) {
-        this.data = data;
-    }
+	public E getDato() {
+		return dato;
+	}
 
-    public Nodo<E> getNext() {
-        return next;
-    }
+	public void setDato(E dato) {
+		this.dato = dato;
+	}
 
-    public void setNext(Nodo<E> next) {
-        this.next = next;
-    }
+	public Nodo<E> getSiguiente() {
+		return siguiente;
+	}
+
+	public void setSiguiente(Nodo<E> siguiente) {
+		this.siguiente = siguiente;
+	}
+
+	public Nodo<E> getAnterior() {
+		return anterior;
+	}
+
+	public void setAnterior(Nodo<E> anterior) {
+		this.anterior = anterior;
+	}
+	
 }

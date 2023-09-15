@@ -19,17 +19,18 @@ public class Herramientas {
 			lista1.agregarEnCola(numberRandom,lista2);
 		}
 		
-		lista1.imprimirElemetos();
+		lista1.imprimirElementos();;
 		System.out.println("--------------------------");
-		System.out.println("Lista despues de agregar 6 numeros repetidos que son 152");
+		System.out.println("Lista despues de agregar 6 numeros repetidos que son 152/n"
+				+ "esto sirve como verificador del funcionamieto");
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
 		lista1.agregarEnCabeza(152);
-		lista1.imprimirElemetos();
+		lista1.imprimirElementos();
 		System.out.println("Lista de elenetos eliminados de la lista original/n--------------------------/n--------------------------/n--------------------------/n--------------------------");
-		lista2.imprimirElemetos();
+		lista2.imprimirElementos();
 	}
 }

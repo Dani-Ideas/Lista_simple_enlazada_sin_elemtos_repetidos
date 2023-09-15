@@ -3,12 +3,12 @@ package fes.aragon.utilerias.dinamicas.listasimple;
 public class ListaSimpleSinRepetir<E> extends ListaSimple<E>{
 	
 	public boolean contiene(E elemento) {
-	    Nodo<E> temporal = header;
+	    Nodo<E> temporal = cabeza;
 	    while (temporal != null) {
-	        if (temporal.getData().equals(elemento)) {
+	        if (temporal.getDato().equals(elemento)) {
 	            return true; // El elemento está en la lista
 	        }
-	        temporal = temporal.getNext();
+	        temporal = temporal.getSiguiente();
 	    }
 	    return false; // El elemento no está en la lista
 	}

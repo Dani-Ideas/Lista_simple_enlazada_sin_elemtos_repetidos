@@ -1,156 +1,385 @@
 package fes.aragon.utilerias.dinamicas.listasimple;
 
-import java.util.NoSuchElementException;
+/**
+ * @author sebastian Mendoza
+ */
 
 public class ListaSimple<E> {
-
-	protected Nodo<E> header, cola;
+	protected Nodo<E> cabeza, cola;
 	protected int longitud = 0;
-	
+
 	public ListaSimple() {
-		header=cola=null;
+		cabeza = cola = null;
 	}
-	
-	public void agregarEnCabeza(E inputData) {
-		header = new Nodo<E>(inputData, header);
-		if (cola==null) {
-			cola= header;
-		}
-		longitud++;
-	}
-	public void agregarEnCola(E inputData) {
-		if (header==null) {
-			header= cola= new Nodo<E>(inputData);
-		}else {
-			cola.setNext(new Nodo<E>(inputData));
-			cola = cola.getNext();
-		}
-		longitud++;
-	}
-	public void imprimirElemetos() {
-		for (Nodo<E> temporal = header; temporal !=null; temporal=temporal.getNext()) {
-			System.out.println(temporal.getData());
-		}
-	}
-	public E obtenerCabeza() {
-		return header.getData();
-	}
-	public E obtenerCola() {
-		return cola.getData();
-	}
-	public int getLongitud() {
-		return longitud;
-	}
-	
-	public boolean eliminar(E inputData) {
-	    boolean borrado = false;
-	    if (header != null) {
-	        if (header == cola && inputData.equals(header.getData())) {
-	            header = cola = null;
-	            borrado = true;
-	            longitud--;
-	        } else if (inputData.equals(header.getData())) {
-	            header = header.getNext();
-	            borrado = true;
-	            longitud--;
-	        } else {
-	            Nodo<E> temporal, predecesor;
-	            predecesor = header;
-	            temporal = header.getNext();
-	            while (temporal != null && !temporal.getData().equals(inputData)) {
-	                predecesor = temporal;
-	                temporal = temporal.getNext();
-	            }
-	            if (temporal != null) {
-	                borrado = true;
-	                longitud--;
-	                predecesor.setNext(temporal.getNext());
-	                if (temporal.equals(cola)) {
-	                    cola = predecesor;
-	                }
-	            }
-	        }
-	    }
-	    return borrado;
-	}
+
 	/**
-	 * Este metodo elimina los elemetos de nuetra lista en dos posibles casos:
-	 * 1- cuando la lista tiene mas de un elemento
-	 * 2- cuando la lista tiene mas de un elemento
-	 * */
-	public void eliminarEnCabeza() {
-		if (header !=null) {
-			if (header.equals(cola)) {
-				//cuando la lista tiene mas de un elemento
-				header=cola=null;
+	 * Metodo que agrega un nodo en la cabeza de la lista
+	 * 
+	 * @param dato es el parametro que indica que dato llevara el nuevo nodo
+	 */
+	public void agregarEnCabeza(E dato) {
+		cabeza = new Nodo<E>(dato, cabeza);
+		if (cola == null) {
+			cola = cabeza;
+		}
+		longitud++;
+	}
+
+	/**
+	 * Metodo que agrega un nodo en la cola de la lista
+	 * 
+	 * @param dato es el parametro que indica que dato llevara el nuevo nodo
+	 */
+	public void agregarEnCola(E dato) {
+		if (cabeza == null) {
+			cabeza = cola = new Nodo<E>(dato);
+		} else {
+			cola.setSiguiente(new Nodo<E>(dato));
+			cola = cola.getSiguiente();
+		}
+		longitud++;
+	}
+
+	/**
+	 * Metodo que imprime los elementos de la lista
+	 */
+	public void imprimirElementos() {
+		for (Nodo<E> tmp = cabeza; tmp != null; tmp = tmp.getSiguiente()) {
+			System.out.println(tmp.getDato());
+		}
+	}
+
+	/**
+	 * Metodo que nos muestra la información del nodo de la cabeza
+	 * 
+	 * @return regreza el dato que tiene cabeza
+	 */
+	public E obtenerCabeza() {
+		return cabeza.getDato();
+	}
+
+	/**
+	 * Metodo que nos muestra la información del nodo de la cola
+	 * 
+	 * @return regreza el dato que tiene cola
+	 */
+	public E obtenerCola() {
+		return cola.getDato();
+	}
+
+	/**
+	 * Metodo que elimina la cola de la lista y regresa el valor que borrro
+	 */
+
+	public E eliminarEnCola() {
+		final E num = (E) cola.getDato();
+		if (cabeza != null) {
+			if (cabeza == cola) {
+				cabeza = cola = null;
 				longitud--;
-			}else {
-				//cuando la lista tiene mas de un elemento
-				header= header.getNext();
+			} else {
+				Nodo<E> tmp;
+				for (tmp = cabeza; tmp.getSiguiente() != cola; tmp = tmp.getSiguiente())
+					;
+
+				tmp.setSiguiente(null);
+				cola = tmp;
 				longitud--;
 			}
 		}
+		return num;
 	}
-	@SuppressWarnings("unused")
-	public void eliminarEnCola () {
-		//probar porque creo que esta mal que esta mal
-		if (header != null) {
-			if (header == cola) {
-				header= cola= null;
-				longitud --;
+
+	/**
+	 * Metodo que elimina la cabeza de la lista y regresa el valor que borrro
+	 */
+	public E eliminarEnCabeza() {
+		final E num = (E) cabeza.getDato();
+		if (cabeza != null) {
+			if (cabeza == cola) {
+				cabeza = cola = null;
+				longitud--;
 			} else {
-				Nodo<E> temporal;
-				for (temporal=header; temporal.getNext()!=cola&&temporal.getNext()!=null;temporal=temporal.getNext()) {
-					temporal.setNext(null);
+				cabeza = cabeza.getSiguiente();
+				longitud--;
+			}
+		}
+		return num;
+	}
+
+	/**
+	 * Metodo que elimina el el nodo del indice indicado
+	 * 
+	 * @param indice parametro que indica que indice borrar, este inicia en 0
+	 * @return nos regresa si hizo el borrado del nodo
+	 */
+
+	public E eliminarEnIndice(int indice) {
+		E num = null;
+		if (indice >= 0 && indice <= longitud - 1) {
+			if (cabeza != null) {
+				if (cabeza == cola && indice == 0) {
+					num = cabeza.getDato();
+					cabeza = cola = null;
+					longitud--;
+				} else if (indice == 0) {
+					num = cabeza.getDato();
+					cabeza = cabeza.getSiguiente();
+					longitud--;
+				} else {
+					Nodo<E> prd, tmp;
+					int contador = 1;
+					for (prd = cabeza, tmp = cabeza.getSiguiente(); tmp != null
+							&& contador != indice; tmp = tmp.getSiguiente(), prd = prd.getSiguiente(), contador++)
+						;
+					if (tmp != null) {
+						num = (E) tmp.getDato();
+						longitud--;
+						prd.setSiguiente(tmp.getSiguiente());
+					}
+					if (tmp == cola) {
+						num = (E) tmp.getDato();
+						cola = prd;
+						longitud--;
+					}
+				}
+			}
+		}
+		return num;
+	}
+
+	/**
+	 * Metodo que elimina el dato que le indicamos
+	 * 
+	 * @param dato es el parametro que indicara que dato es el que queremos borrar
+	 * @return nos regresa si hizo el borrado del nodo
+	 */
+	public E eliminar(E dato) {
+		E num = null;
+		if (cabeza != null) {
+			if (cabeza == cola && dato.equals(cabeza.getDato())) {
+				num = cabeza.getDato();
+				cabeza = cola = null;
+				longitud--;
+			} else if (dato == cabeza.getDato()) {
+				num = cabeza.getDato();
+				cabeza = cabeza.getSiguiente();
+				longitud--;
+			} else {
+				Nodo<E> prd, tmp;
+				for (prd = cabeza, tmp = cabeza.getSiguiente(); tmp != null
+						&& !tmp.getDato().equals(dato); prd = prd.getSiguiente(), tmp = tmp.getSiguiente())
+					;
+				if (tmp != null) {
+					num = (E) tmp.getDato();
+					longitud--;
+					prd.setSiguiente(tmp.getSiguiente());
+				}
+				if (tmp == cola) {
+					num = (E) tmp.getDato();
+					cola = prd;
 					longitud--;
 				}
 			}
 		}
+		return num;
+	}
+
+	/**
+	 * Metodo el cual regresa el dato del indice indicado
+	 * 
+	 * @param indice parametro que indicara que indice queremos obtener su dato,
+	 *               iniciando en el 0
+	 * @return regresa el dato del indice indicado
+	 */
+	public E ObtenerDatoIndice(int indice) {
+		E num = null;
+		if (indice >= 0 && indice <= longitud - 1) {
+			if (cabeza != null) {
+				if (cabeza == cola && indice == 0) {
+					num = cabeza.getDato();
+				} else {
+					Nodo<E> prd;
+					int contador = 0;
+					for (prd = cabeza; contador != indice; prd = prd.getSiguiente(), contador++)
+						;
+					num = (E) prd.getDato();
+				}
+			}
+		}
+		return num;
+	}
+
+	/**
+	 * Metodo el cual cambia el dato que tiene el nodo del indice indicado por el
+	 * dato que le indicamos
+	 * 
+	 * @param dato   parametro el cual indica cual es el nuevo dato a poner en un
+	 *               nodo
+	 * @param indice parametro que indicara que indice queremos cambiar, iniciando
+	 *               en el 0
+	 */
+	public void asignarEnIndice(E dato, int indice) {
+		if (indice >= 0 && indice <= longitud - 1) {
+			if (cabeza != null) {
+				if (cabeza == cola && indice == 0) {
+					cabeza.setDato(dato);
+				} else {
+					Nodo<E> prd;
+					int contador = 0;
+					for (prd = cabeza; contador != indice; prd = prd.getSiguiente(), contador++)
+						;
+					prd.setDato(dato);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Metodo que cambia el dato que le indicamos por uno nuevo
+	 * @param dato parametro que indica cual es el dato que queremos cambiar
+	 * @param nuevoDato parametro que indica por que dato cambiariamos 
+	 * @param b boleano que indica si queremos cambiar todos los datos o solo el primero
+	 */
+	public void asignar(E dato, E nuevoDato, boolean b) {
+		if (cabeza != null) {
+			if(!b) {
+				Nodo<E> tmp ;
+				for (tmp = cabeza; !tmp.getDato().equals(dato) && tmp.getSiguiente() != null  ;
+						tmp = tmp.getSiguiente())
+					;
+				tmp.setDato(nuevoDato);
+			} else {
+				Nodo<E> tmp ;
+				for (tmp = cabeza;tmp.getSiguiente() != null  ; tmp = tmp.getSiguiente()) {
+					if(tmp.getDato().equals(dato)) {
+						tmp.setDato(nuevoDato);	
+					}
+				}
+				if(tmp.getDato().equals(dato)) {
+					tmp.setDato(nuevoDato);
+				}					
+			}
+		} 
 	}
 	
-	// Estos metodos SON EXPERIMETALES
-	@SuppressWarnings("unused")
-	public E eliminarEnColaRetornaValor () {
-		//probar porque creo que esta mal que esta mal
-		if (header != null) {
-			if (header == cola) {
-				E valor = header.getData();
-				valor= header.getData();
-				header= cola= null;
-				longitud --;
-				return valor;
+	/**
+	 * Metodo que nos da la longitud de la lista simple
+	 * @return regresa en un dato de tipo entero la longitud de la lista
+	 */
+	public int longitud() {
+		int num = 0;
+		if (cabeza != null) {
+			Nodo<E> tmp ;
+			for (tmp = cabeza; tmp.getSiguiente() != null; tmp = tmp.getSiguiente()) {
+				num++;
+			}
+		}
+		return num;
+	}
+	
+	/*public Integer estaEnLista(E dato, boolean b) {
+		Nodo<E> tmp;
+		int indice = 0;
+		if (cabeza != null) {
+			if(!b) {
+				Nodo<E> tmp ;
+				for (tmp = cabeza; !tmp.getDato().equals(dato) && tmp.getSiguiente() != null  ;
+						tmp = tmp.getSiguiente())
+					;
+				tmp.setDato(nuevoDato);
 			} else {
-				Nodo<E> temporal;
-				E valor=null;
-				for (temporal=header; temporal.getNext()!=cola&&temporal.getNext()!=null;temporal=temporal.getNext()) {
-					valor = temporal.getData();
-					temporal.setNext(null);
+				Nodo<E> tmp ;
+				for (tmp = cabeza;tmp.getSiguiente() != null  ; tmp = tmp.getSiguiente()) {
+					if(tmp.getDato().equals(dato)) {
+						tmp.setDato(nuevoDato);	
+					}
+				}
+				if(tmp.getDato().equals(dato)) {
+					tmp.setDato(nuevoDato);
+				}					
+			}
+		}
+		return longitud;
+	}*/
+	
+	
+	@SuppressWarnings({ "null", "unused" })
+	public E eliminarT(E dato, boolean b) {
+		E num = null;
+		if (cabeza != null) {
+			if(!b) {
+				if (cabeza == cola && dato.equals(cabeza.getDato())) {
+					num = cabeza.getDato();
+					cabeza = cola = null;
+					longitud--;
+				} else if (dato == cabeza.getDato()) {
+					num = cabeza.getDato();
+					cabeza = cabeza.getSiguiente();
+					longitud--;
+				} else {
+					Nodo<E> prd, tmp;
+					for (prd = cabeza, tmp = cabeza.getSiguiente(); tmp != null
+							&& !tmp.getDato().equals(dato); prd = prd.getSiguiente(), tmp = tmp.getSiguiente())
+						;
+					if (tmp != null) {
+						num = (E) tmp.getDato();
+						longitud--;
+						prd.setSiguiente(tmp.getSiguiente());
+					}
+					if (tmp == cola) {
+						num = (E) tmp.getDato();
+						cola = prd;
+						longitud--;
+					}
+				}
+			} else {
+				Nodo<E> prd, tmp, tmp2;
+				if (dato == cabeza.getDato()) {
+					num = cabeza.getDato();
+					cabeza = cabeza.getSiguiente();
 					longitud--;
 				}
-				return valor;
+				for (prd = cabeza, tmp = prd.getSiguiente(); tmp != null
+						; prd = prd.getSiguiente(), tmp = prd.getSiguiente()) {
+					tmp2 = tmp.getSiguiente();
+					if(tmp.getDato().equals(dato)) {
+						if (tmp2.getSiguiente() != null) {
+							num = (E) tmp.getDato();
+							prd.setSiguiente(tmp.getSiguiente());
+							tmp = tmp2.getSiguiente();
+							longitud--;	
+						}	
+						if (tmp == cola) {
+							num = (E) tmp.getDato();
+							cola = prd;
+							longitud--;
+						}
+					}	
+				}	
 			}
-		}else {
-	        throw new NoSuchElementException("La lista está vacía. No se puede eliminar ningún valor.");
-	    }
+		}		
+		return num;
 	}
-	public E eliminarEnCabezaRetornaValor() {
-		if (header !=null) {
-			if (header.equals(cola)) {
-				//cuando la lista tiene mas de un elemento
-				E valor= header.getData();
-				header=cola=null;
-				longitud--;
-				return valor;
-			}else {
-				//cuando la lista tiene mas de un elemento
-				E valor= header.getData();
-				header= header.getNext();
-				longitud--;
-				return valor;
+	/*
+	 * if (cabeza != null) {
+			if(!b) {
+				Nodo<E> tmp ;
+				for (tmp = cabeza; !tmp.getDato().equals(dato) && tmp.getSiguiente() != null  ;
+						tmp = tmp.getSiguiente())
+					;
+				tmp.setDato(nuevoDato);
+			} else {
+				Nodo<E> tmp ;
+				for (tmp = cabeza;tmp.getSiguiente() != null  ; tmp = tmp.getSiguiente()) {
+					if(tmp.getDato().equals(dato)) {
+						tmp.setDato(nuevoDato);	
+					}
+				}
+				if(tmp.getDato().equals(dato)) {
+					tmp.setDato(nuevoDato);
+				}					
 			}
-		}else {
-	        throw new NoSuchElementException("La lista está vacía. No se puede eliminar ningún valor.");
-	    }
-	}
-	
+		} 
+	 */
 }
