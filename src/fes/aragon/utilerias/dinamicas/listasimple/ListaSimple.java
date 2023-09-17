@@ -115,37 +115,33 @@ public class ListaSimple<E> {
 	 */
 
 	public E eliminarEnIndice(int indice) {
-		E num = null;
-		if (indice >= 0 && indice <= longitud - 1) {
-			if (cabeza != null) {
-				if (cabeza == cola && indice == 0) {
-					num = cabeza.getDato();
-					cabeza = cola = null;
-					longitud--;
-				} else if (indice == 0) {
-					num = cabeza.getDato();
-					cabeza = cabeza.getSiguiente();
-					longitud--;
-				} else {
-					Nodo<E> prd, tmp;
-					int contador = 1;
-					for (prd = cabeza, tmp = cabeza.getSiguiente(); tmp != null
-							&& contador != indice; tmp = tmp.getSiguiente(), prd = prd.getSiguiente(), contador++)
-						;
-					if (tmp != null) {
-						num = (E) tmp.getDato();
-						longitud--;
-						prd.setSiguiente(tmp.getSiguiente());
-					}
-					if (tmp == cola) {
-						num = (E) tmp.getDato();
-						cola = prd;
-						longitud--;
-					}
-				}
-			}
-		}
-		return num;
+	    E num = null;
+	    if (indice >= 0 && indice < longitud) {
+	        if (indice == 0) {
+	            num = cabeza.getDato();
+	            cabeza = cabeza.getSiguiente();
+	            if (cabeza == null) {
+	                cola = null;
+	            }
+	        } else {
+	            Nodo<E> anterior = cabeza;
+	            int contador = 0;
+	            
+	            while (contador < indice - 1) {
+	                anterior = anterior.getSiguiente();
+	                contador++;
+	            }
+	            
+	            num = anterior.getSiguiente().getDato();
+	            anterior.setSiguiente(anterior.getSiguiente().getSiguiente());
+	            
+	            if (anterior.getSiguiente() == null) {
+	                cola = anterior;
+	            }
+	        }
+	        longitud--;
+	    }
+	    return num;
 	}
 
 	/**
