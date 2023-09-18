@@ -17,7 +17,7 @@ public class ListaSimpleSinRepetir<E> extends ListaSimple<E>{
 	            if (temporal.getDato().equals(referencia.getDato())) {
 	            	list_errace.agregarEnCola(referencia.getDato());
 	            	basura=super.eliminarEnIndice(indiceReferencia);
-	            	System.out.println("Se detecto un numero repetido en el indice"+indiceReferencia+" se pasara a la lista de repetidos:");
+	            	System.out.println("Se detecto un numero repetido en el indice "+indiceReferencia+" se pasara a la lista de repetidos:");
 	            	System.out.println("----------------------------------------------");
 	        		System.out.println("----------------------------------------------");
 	        		System.out.println("----------------------------------------------");
